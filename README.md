@@ -7,6 +7,12 @@ Youtube demo (Click Image):
 To use:
 
 1. Install caffe on your machine
+2. Clone repository
+3. Download colorization_release_v0.caffemodel using: 
+    wget http://eecs.berkeley.edu/~rich.zhang/projects/2016_colorization/files/demo_v0/colorization_release_v0.caffemodel
+   Place model in the Webapp folder
+4. Run server using "node Sever/app.js"
+5. open index on webpage
 
 Using the caffe convolutional neural network framework, our team has created a drawing web app using the Wacom WILL (Universal Ink) API for artists to bring their creations to life with the press of a few buttons in amazing times. Wacom offers a wide range of artist tools that cater towards the most advanced artists and designers. Our tool allows these skilled artists to instantly colourize their sketches using object and feature extraction to intelligently match colours to the sampling pixels on the sketch. This not only adds productivity to the creative process using advanced algorithms in Berkley's deep learning image framework, but also adds a new dimension of creativity to someone's art. It's not everyday that you can say that a computer helped you re-imagine a piece of art. 
 
