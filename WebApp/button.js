@@ -314,23 +314,15 @@ function colourSampleRateSliderOnChange(newValue) {
 	
 }
 
-function setupButtons(callback) {
-	var tags = getTagsFromStorage();
-	var json_tags = $.parseJSON(tags);
+function setupButtons(tags, callback) {
+	// var tags = getTagsFromStorage();
+	 var json_tags = $.parseJSON(tags);
 
 	console.log(json_tags);
-	var count = 0;
 	var button_array = ["#tag1", "#tag2", "#tag3", "#tag4", "#tag5", "#tag6", "#tag7", "#tag8", "#tag9", "#tag10"]
-	for (var x in json_tags){
-        if (json_tags.hasOwnProperty(x)){
-	        console.log(count + ": " + json_tags[x]);
-	        $(button_array[count]).html("#" + json_tags[x]);
-	        if(count>=9){
-	            break;
-	        }
-	    count++;
-        }
-    }
+	for(var i = 0; i<10;i++){
+		$(button_array[i]).html("#"+json_tags[i]);
+	}
     $('#preview').attr("src", '/Sever/result.png');
     callback();
 }
@@ -341,12 +333,7 @@ function storeTags() {
 	var ajax =  clarifai_ajax_call();
     ajax.success(function(response) {
 	    console.log(response);
-	    json = JSON.stringify(response);
-	   //creates a base-64 encoded ASCII string
-	   json = btoa(json);
-	   //save the encoded accout to web storage
-	   localStorage.setItem('tags', json);
-	   setupButtons(function(){
+	   setupButtons(response,function(){
 			$('#modal-button').click();
 		});
 

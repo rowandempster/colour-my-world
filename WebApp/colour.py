@@ -1,6 +1,3 @@
-#Credits to https://github.com/richzhang and http://caffe.berkeleyvision.org/ for framework and baseline colourization code
-#Developed by Himel Mondal, Rowan Dempster, Tom Cho, and Shuangshuang Zhao @ AngelHacks Toronto 2016
-
 import numpy as np
 import matplotlib.pyplot as plt
 import caffe
@@ -13,8 +10,9 @@ import colorsys
 from PIL import Image
 from PIL import ImageEnhance
 
-# Make sure you install the caffemodel below for the framework to work
-# !wget http://eecs.berkeley.edu/~rich.zhang/projects/2016_colorization/files/demo_v0/colorization_release_v0.caffemodel
+# clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# clientsocket.connect(('localhost', 8089))
+# plt.rcParams['figure.figsize'] = (12, 6)
 
 def main(argv):
 	gpu_id = 0
@@ -66,3 +64,7 @@ def main(argv):
 
 if __name__ == '__main__':
 	main(sys.argv)
+
+# data_uri = open('/imgs/tower2.jpg' 'rb').read().encode('base64').replace('\n', '')
+
+# clientsocket.send(img_rgb_out)
