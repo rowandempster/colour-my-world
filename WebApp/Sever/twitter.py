@@ -4,8 +4,8 @@ import os
 import requests
 
 def twitter_api():
-  auth = tweepy.OAuthHandler('N5ym5uIVxrA1AEYqNsuPIUXOK', 'iKVjLTULz913P0nvuM8SYvC4tXid6w0Q616ZwZVqexveSMhIuv')
-  auth.set_access_token('601485524-IWkk5xa1RNSa0GQOKmq7nkZM134mKFHFoHYZbIzA', 'LFQGGFan057j8PQWJWqJDDLwudcdIESlkm92EzpeC2icG')
+  auth = tweepy.OAuthHandler('', '')  #  (Consumer Key (API Key),  Consumer Secret (API Secret))
+  auth.set_access_token('', '') # (Access Token, Access Token Secret)
   api = tweepy.API(auth)
 
   return api
