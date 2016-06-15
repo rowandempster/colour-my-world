@@ -53,7 +53,7 @@ app.post('/thickness', function (req, res) {
 });
 
 app.post('/clarifai', function (req, res) {
-    shell.exec('python ./Sever/clarifai.py ./Sever/result.png', function(status, stdout, stderr) {
+    shell.exec('python clarifai.py result.png', function(status, stdout, stderr) {
         console.log(stdout);
         res.end(stdout);
       });
