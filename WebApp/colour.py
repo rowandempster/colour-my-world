@@ -1,3 +1,6 @@
+#Credits to http://richzhang.github.io/ and http://caffe.berkeleyvision.org/ for this project
+#Created by Himel Mondal, Shuangshuang Zhao, Tom Cho, and Rowan Dempster at AngelHacks 2016
+
 import numpy as np
 import matplotlib.pyplot as plt
 import caffe
@@ -10,9 +13,8 @@ import colorsys
 from PIL import Image
 from PIL import ImageEnhance
 
-# clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# clientsocket.connect(('localhost', 8089))
-# plt.rcParams['figure.figsize'] = (12, 6)
+# Download the Caffe Model
+# !wget http://eecs.berkeley.edu/~rich.zhang/projects/2016_colorization/files/demo_v0/colorization_release_v0.caffemodel
 
 def main(argv):
 	gpu_id = 0
@@ -41,30 +43,28 @@ def main(argv):
 	img_rgb_out = np.clip(color.lab2rgb(img_lab_out),0,1) # convert back to rgb
 
 	scipy.misc.imsave('./Sever/images/'+argv[1]+'2.png', img_rgb_out)
+	if(int(argv[3])!=1):
+		img = Image.open('./Sever/images/'+argv[1]+'2.png')
+		converter = ImageEnhance.Color(img)
+		img = converter.enhance(float(argv[3]))   #argv[3]
+		scipy.misc.imsave('./Sever/images/'+argv[1]+'2.png', img)		
+
+	if(int(argv[4])!=0 or int(argv[5])!=1):
+		img = Image.open('./Sever/images/'+argv[1]+'2.png')
+		ld = img.load()
+		width, height = img.size
+		for y in range(height):
+		    for x in range(width):
+		        r,g,b = ld[x,y]
+		        h,s,v = colorsys.rgb_to_hsv(r/255., g/255., b/255.)
+		        h = (h + float(argv[4])/360.0) % 1.0   #argv[4]
+		        s = s** float(argv[5])              #argv[5]
+		        r,g,b = colorsys.hsv_to_rgb(h, s, v)
+		        ld[x,y] = (int(r * 255.9999), int(g * 255.9999), int(b * 255.9999))
 
 	img = Image.open('./Sever/images/'+argv[1]+'2.png')
-	converter = ImageEnhance.Color(img)
-	img2 = converter.enhance(float(argv[3]))   #argv[3]
-	scipy.misc.imsave('./Sever/images/'+argv[1]+'2-enhance.png', img2)
-	ld = img2.load()
-	width, height = img.size
-	for y in range(height):
-	    for x in range(width):
-	        r,g,b = ld[x,y]
-	        h,s,v = colorsys.rgb_to_hsv(r/255., g/255., b/255.)
-	        h = (h + float(argv[4])/360.0) % 1.0   #argv[4]
-	        s = s** float(argv[5])              #argv[5]
-	        r,g,b = colorsys.hsv_to_rgb(h, s, v)
-	        ld[x,y] = (int(r * 255.9999), int(g * 255.9999), int(b * 255.9999))
-
-	scipy.misc.imsave('./Sever/result.png', img2)
+	scipy.misc.imsave('./Sever/result.png', img)
 	sys.exit()
-
-
 
 if __name__ == '__main__':
 	main(sys.argv)
-
-# data_uri = open('/imgs/tower2.jpg' 'rb').read().encode('base64').replace('\n', '')
-
-# clientsocket.send(img_rgb_out)
