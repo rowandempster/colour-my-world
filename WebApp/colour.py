@@ -43,7 +43,7 @@ def main(argv):
 	img_rgb_out = np.clip(color.lab2rgb(img_lab_out),0,1) # convert back to rgb
 
 	scipy.misc.imsave('./Sever/images/'+argv[1]+'2.png', img_rgb_out)
-	if(int(argv[3])!=1):
+	if(float(argv[3])!=1.0):
 		img = Image.open('./Sever/images/'+argv[1]+'2.png')
 		converter = ImageEnhance.Color(img)
 		img = converter.enhance(float(argv[3]))   #argv[3]

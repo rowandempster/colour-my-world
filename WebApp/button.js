@@ -6,7 +6,7 @@ var colourSampleRate;
 var img;
 var fr;
 var messageArray = "";
-
+var loading;
 // for buttons
 function uploadImageClicked() {
 	console.log("upload image clicked");
@@ -19,6 +19,13 @@ $("input[id='my_file']").change(function(event) {
 	fr.onload = createImage;
 	fr.readAsDataURL(file);
 	getResult();
+	$.getScript("http://api.ning.com:80/files/VRZzgEZ7j93TXnij4yUrBDRfKtAzmCXfCRDVImxrImAbQgeDzOmjkAy9ffs9s8C46bxx*HpA198lHfkJPYD0UztZZ8-l7usw/pleasewait.js", function(data, textStatus, jqxhr){
+		loading = pleaseWait({
+			logo: 'cmw.svg',
+ 			backgroundColor: '#ffffff',
+  			loadingHtml: "<div class='sk-spinner sk-spinner-wave'><div class='sk-rect1'></div><div class='sk-rect2'></div><div class='sk-rect3'></div><div class='sk-rect4'></div><div class='sk-rect5'></div><div><h1>Loading...</h1></div></div>"
+		});
+	});
 });
 
 function createImage() {
@@ -89,6 +96,13 @@ function saveImageClicked() {
         }
     });
 	this.getResult();
+	$.getScript("http://api.ning.com:80/files/VRZzgEZ7j93TXnij4yUrBDRfKtAzmCXfCRDVImxrImAbQgeDzOmjkAy9ffs9s8C46bxx*HpA198lHfkJPYD0UztZZ8-l7usw/pleasewait.js", function(data, textStatus, jqxhr){
+		loading = pleaseWait({
+			logo: 'cmw.svg',
+ 			backgroundColor: '#ffffff',
+  			loadingHtml: "<div class='sk-spinner sk-spinner-wave'><div class='sk-rect1'></div><div class='sk-rect2'></div><div class='sk-rect3'></div><div class='sk-rect4'></div><div class='sk-rect5'></div><div><h1>Loading...</h1></div></div>"
+		});
+	});
 }
 
 function getResult() {
@@ -105,9 +119,10 @@ function getResult() {
 			setTimeout(function(){ 
 				var resultImgElement = document.getElementById('result-img');
 				resultImgElement.src = './Sever/result.png';
-			}, 1000);
+			}, 1700);
 			setTimeout(function(){
 				storeTags();
+				loading.finish();
 			},1000);
 		}
 	})
@@ -240,10 +255,18 @@ function clarifai_ajax_call() {
 }
 
 function sendTweet(message) {
-	var ajax = tweet_ajax_call(message);
+	var ajax = tweet_ajax_call(message,function(){
+		$.ajax({
+		    url: 'http://localhost:3000/deleteImages',
+		    type: 'POST',
+		    error: function() {
+		        alert("Error occured")
+		    }
+		});
+	});
 }
 
-function tweet_ajax_call(message) {
+function tweet_ajax_call(message, callback) {
     return $.ajax({
 	    url: 'http://localhost:3000/twitter',
 	    type: 'POST',
@@ -255,6 +278,7 @@ function tweet_ajax_call(message) {
 	        alert("Error occured")
 	    }
 	});
+	callback();
 }
 
 

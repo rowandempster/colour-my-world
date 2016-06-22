@@ -50,7 +50,7 @@ app.post('/thickness', function (req, res) {
 });
 
 app.post('/clarifai', function (req, res) {
-    shell.exec('curl -X POST "https://api.clarifai.com/v1/token/"  -d "client_id=<id here>"  -d "client_secret=<secret here>"  -d "grant_type=client_credentials"',
+    shell.exec('curl -X POST "https://api.clarifai.com/v1/token/"  -d "client_id=w0V2s70r2mWiEl7x0C9ure-LUFUp4j6699fndOOr"  -d "client_secret=qzsJUT7AoJMh_e21TRUaw4DPMGnOTfV1azJ9LlSR"  -d "grant_type=client_credentials"',
       function(status,stdout,stderr){
         token = JSON.parse(stdout)["access_token"]+'"';
         str = 'curl "https://api.clarifai.com/v1/tag/"  -F "model=general-v1.3"  -F "encoded_data=@/Users/Himel/GitHub/Colour-My-World/WebApp/Sever/result.png"  -H "Authorization: Bearer '+token;
