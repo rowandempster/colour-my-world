@@ -136,6 +136,7 @@ function tagButtonClick(buttonId) {
 }
 
 function deleteImages() {
+	window.location.reload(false); 
 	return $.ajax({
 	    url: 'http://localhost:3000/deleteImages',
 	    type: 'POST',
