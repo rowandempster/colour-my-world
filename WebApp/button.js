@@ -1,8 +1,8 @@
 var MODE = 'DRAW';
-var vibrance;
-var saturation;
-var hue;
-var colourSampleRate;
+var vibrance = 1;
+var saturation = 1;
+var hue = 0;
+var colourSampleRate = 50;
 var img;
 var fr;
 var messageArray = "";
