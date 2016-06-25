@@ -5,8 +5,19 @@ var hue = 0;
 var colourSampleRate = 50;
 var img;
 var fr;
-var messageArray = "";
 var loading;
+var tag1= "";
+var tag2 = "";
+var tag3 = "";
+var tag4 = "";
+var tag5 = "";
+var tag6 = "";
+var tag7 = "";
+var tag8 = "";
+var tag9 = "";
+var tag10 = "";
+
+
 // for buttons
 function uploadImageClicked() {
 	console.log("upload image clicked");
@@ -130,9 +141,112 @@ function getResult() {
 
 function tagButtonClick(buttonId) {
     console.log(buttonId);
-    messageArray += (" " + document.getElementById(buttonId).innerHTML);
-    console.log(messageArray);
-    $('#'+buttonId).css("background-color", "red");
+    if(buttonId === "tag1"){
+    	if(tag1===""){
+    		tag1 = document.getElementById(buttonId).innerHTML + " ";
+    		    $('#'+buttonId).css("background-color", "red");
+    	}
+    	else {
+    		tag1 = "";
+    		 $('#'+buttonId).css("background-color", "#C0C0C0");
+    	}
+    }
+        else if(buttonId === "tag2"){
+    	if(tag2===""){
+    		tag2 = document.getElementById(buttonId).innerHTML+ " ";
+    		    $('#'+buttonId).css("background-color", "red");
+    	}
+    	else {
+    		tag2 = "";
+    		 $('#'+buttonId).css("background-color", "#C0C0C0");
+    	}
+    }
+        else if(buttonId === "tag3"){
+    	if(tag3===""){
+    		tag3 = " " + document.getElementById(buttonId).innerHTML+ " ";
+    		    $('#'+buttonId).css("background-color", "red");
+    	}
+    	else {
+    		tag3 = "";
+    		 $('#'+buttonId).css("background-color", "#C0C0C0");
+    	}
+    }
+        else if(buttonId === "tag4"){
+    	if(tag4===""){
+    		tag4 = " " + document.getElementById(buttonId).innerHTML+ " ";
+    		    $('#'+buttonId).css("background-color", "red");
+    	}
+    	else {
+    		tag4 = "";
+    		 $('#'+buttonId).css("background-color", "#C0C0C0");
+    	}
+    }
+        else if(buttonId === "tag5"){
+    	if(tag5===""){
+    		tag5 = " " + document.getElementById(buttonId).innerHTML+ " ";
+    		    $('#'+buttonId).css("background-color", "red");
+    	}
+    	else {
+    		tag5 = "";
+    		 $('#'+buttonId).css("background-color", "#C0C0C0");
+    	}
+    }
+        else if(buttonId === "tag6"){
+    	if(tag6===""){
+    		tag6 = " " + document.getElementById(buttonId).innerHTML+ " ";
+    		    $('#'+buttonId).css("background-color", "red");
+    	}
+    	else {
+    		tag6 = "";
+    		 $('#'+buttonId).css("background-color", "#C0C0C0");
+    	}
+    }
+        else if(buttonId === "tag7"){
+    	if(tag7===""){
+    		tag7 = " " + document.getElementById(buttonId).innerHTML+ " ";
+    		    $('#'+buttonId).css("background-color", "red");
+    	}
+    	else {
+    		tag7 = "";
+    		 $('#'+buttonId).css("background-color", "#C0C0C0");
+    	}
+    }
+        else if(buttonId === "tag8"){
+    	if(tag8===""){
+    		tag8 = " " + document.getElementById(buttonId).innerHTML+ " ";
+    		    $('#'+buttonId).css("background-color", "red");
+    	}
+    	else {
+    		tag8 = "";
+    		 $('#'+buttonId).css("background-color", "#C0C0C0");
+    	}
+    }
+        else if(buttonId === "tag9"){
+    	if(tag9===""){
+    		tag9 = " " + document.getElementById(buttonId).innerHTML+ " ";
+    		    $('#'+buttonId).css("background-color", "red");
+    	}
+    	else {
+    		tag9 = "";
+    		 $('#'+buttonId).css("background-color", "#C0C0C0");
+    	}
+    }
+        else if(buttonId === "tag10"){
+    	if(tag10===""){
+    		tag10 = " " + document.getElementById(buttonId).innerHTML+ " ";
+    		    $('#'+buttonId).css("background-color", "red");
+    	}
+    	else {
+    		tag10 = "";
+    		 $('#'+buttonId).css("background-color", "#C0C0C0");
+    	}
+    }
+
+}
+
+function getMessage(){
+	message = tag1 + tag2 + tag3 + tag4 + tag5 + tag6 + tag7 + tag8 + tag9 + tag10;
+	return message;
 }
 
 function deleteImages() {
@@ -147,8 +261,8 @@ function deleteImages() {
 }
 
 function tweetButtonClick(){
-    console.log("tweeting message: " + messageArray);
-    sendTweet(messageArray);
+    console.log("tweeting message: " + getMessage());
+    sendTweet(getMessage());
 }
 
 // for sliders
@@ -256,18 +370,10 @@ function clarifai_ajax_call() {
 }
 
 function sendTweet(message) {
-	var ajax = tweet_ajax_call(message,function(){
-		$.ajax({
-		    url: 'http://localhost:3000/deleteImages',
-		    type: 'POST',
-		    error: function() {
-		        alert("Error occured")
-		    }
-		});
-	});
+	var ajax = tweet_ajax_call(message);
 }
 
-function tweet_ajax_call(message, callback) {
+function tweet_ajax_call(message) {
     return $.ajax({
 	    url: 'http://localhost:3000/twitter',
 	    type: 'POST',
@@ -277,9 +383,11 @@ function tweet_ajax_call(message, callback) {
 	    async: 1,
 	    error: function() {
 	        alert("Error occured")
+	    },
+	    success: function() {
+	    	deleteImages();
 	    }
 	});
-	callback();
 }
 
 
